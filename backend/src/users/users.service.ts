@@ -22,4 +22,26 @@ export class UsersService {
             },
         });
     }
+    async findById(id: string) {
+        return this.prisma.user.findUnique({
+            where: {
+                id,
+            },
+            select: {
+                id: true,
+                email: true,
+                createdAt: true,
+                profile: {
+                    select: {
+                        username: true,
+                        bio: true,
+                        profileImage: true,
+                        trainingExperience: true,
+                        currentLevel: true,
+                        totalXp: true,
+                    },
+                },
+            },
+        });
+    }
 }
